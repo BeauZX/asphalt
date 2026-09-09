@@ -1,0 +1,21 @@
+# 模型權重（太大，不進 git）
+model/
+*.pt
+*.onnx
+*_ncnn_model/
+
+# 影片素材與錄影輸出
+videos/
+output_videos/
+*.mp4
+*.MP4
+*.avi
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 執行期產物與備份
+roi.json
+*.bak
