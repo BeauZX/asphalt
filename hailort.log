@@ -1,0 +1,160 @@
+[2026-09-12 11:19:05.220] [13360] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:19:05.220] [13360] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:19:05.252] [13360] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-12 11:19:05.265] [13360] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.18.39+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.18.39-1+rpt1 (2026-07-29) aarch64
+[2026-09-12 11:19:05.265] [13360] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-12 11:19:05.265] [13360] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-12 11:19:05.275] [13360] [HailoRT] [info] [buffer_requirements.cpp:198] [find_initial_desc_page_size] Using non-default initial_desc_page_size of 64, due to a small transfer size (8)
+[2026-09-12 11:19:05.275] [13360] [HailoRT] [info] [internal_buffer_manager.cpp:75] [print_execution_results] Default Internal buffer planner failed to meet requirements
+[2026-09-12 11:19:05.275] [13360] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-12 11:19:05.298] [13360] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 32.874698 milliseconds
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 33.380787 milliseconds
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.266701 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.286257 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608)
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating asphalt_cls/input_layer1...
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'asphalt_cls/input_layer1': (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608) >> HW
+[2026-09-12 11:19:05.299] [13360] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8)
+[2026-09-12 11:19:05.300] [13360] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read12asphalt_cls/softmax2)
+[2026-09-12 11:19:05.300] [13360] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3))
+[2026-09-12 11:19:05.300] [13360] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:19:05.300] [13360] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating asphalt_cls/softmax2...
+[2026-09-12 11:19:05.300] [13360] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'asphalt_cls/softmax2': HW >> (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8) >> (PullQEl_hw_read12asphalt_cls/softmax2) >> (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3)) >> (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:19:16.351] [13375] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl12asphalt_cls/softmax2!
+[2026-09-12 11:19:16.351] [13374] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-12 11:19:16.351] [13374] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-12 11:19:16.351] [13374] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read12asphalt_cls/softmax2 was aborted!
+[2026-09-12 11:19:16.351] [13374] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:19:16.351] [13360] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:19:16.351] [13375] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:19:16.351] [13360] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:19:16.352] [13360] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.384145 ms
+[2026-09-12 11:19:16.352] [13360] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.394405 ms
+[2026-09-12 11:22:19.075] [13975] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:22:19.075] [13975] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:22:19.096] [13975] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-12 11:22:19.107] [13975] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.18.39+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.18.39-1+rpt1 (2026-07-29) aarch64
+[2026-09-12 11:22:19.107] [13975] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-12 11:22:19.107] [13975] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-12 11:22:19.113] [13975] [HailoRT] [info] [buffer_requirements.cpp:198] [find_initial_desc_page_size] Using non-default initial_desc_page_size of 64, due to a small transfer size (8)
+[2026-09-12 11:22:19.115] [13975] [HailoRT] [info] [internal_buffer_manager.cpp:75] [print_execution_results] Default Internal buffer planner failed to meet requirements
+[2026-09-12 11:22:19.115] [13975] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-12 11:22:19.138] [13975] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 30.675153 milliseconds
+[2026-09-12 11:22:19.138] [13975] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 30.991559 milliseconds
+[2026-09-12 11:22:19.144] [13975] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.496404 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:22:19.144] [13975] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.546978 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:22:19.144] [13975] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608)
+[2026-09-12 11:22:19.144] [13975] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating asphalt_cls/input_layer1...
+[2026-09-12 11:22:19.144] [13975] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'asphalt_cls/input_layer1': (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608) >> HW
+[2026-09-12 11:22:19.144] [13975] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8)
+[2026-09-12 11:22:19.145] [13975] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read12asphalt_cls/softmax2)
+[2026-09-12 11:22:19.145] [13975] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3))
+[2026-09-12 11:22:19.145] [13975] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:22:19.145] [13975] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating asphalt_cls/softmax2...
+[2026-09-12 11:22:19.145] [13975] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'asphalt_cls/softmax2': HW >> (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8) >> (PullQEl_hw_read12asphalt_cls/softmax2) >> (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3)) >> (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:24:50.499] [13992] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-12 11:24:50.499] [13992] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-12 11:24:50.499] [13992] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read12asphalt_cls/softmax2 was aborted!
+[2026-09-12 11:24:50.499] [13993] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl12asphalt_cls/softmax2!
+[2026-09-12 11:24:50.500] [13992] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:24:50.500] [13975] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:24:50.500] [13993] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:24:50.500] [13975] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:24:50.500] [13975] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.424998 ms
+[2026-09-12 11:24:50.500] [13975] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.439183 ms
+[2026-09-12 11:32:23.253] [16279] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:32:23.253] [16279] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:32:23.268] [16279] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-12 11:32:23.279] [16279] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.18.39+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.18.39-1+rpt1 (2026-07-29) aarch64
+[2026-09-12 11:32:23.279] [16279] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-12 11:32:23.279] [16279] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-12 11:32:23.286] [16279] [HailoRT] [info] [buffer_requirements.cpp:198] [find_initial_desc_page_size] Using non-default initial_desc_page_size of 64, due to a small transfer size (8)
+[2026-09-12 11:32:23.287] [16279] [HailoRT] [info] [internal_buffer_manager.cpp:75] [print_execution_results] Default Internal buffer planner failed to meet requirements
+[2026-09-12 11:32:23.287] [16279] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 23.681938 milliseconds
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 23.935233 milliseconds
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.209888 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.221703 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608)
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating asphalt_cls/input_layer1...
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'asphalt_cls/input_layer1': (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608) >> HW
+[2026-09-12 11:32:23.303] [16279] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8)
+[2026-09-12 11:32:23.304] [16279] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read12asphalt_cls/softmax2)
+[2026-09-12 11:32:23.304] [16279] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3))
+[2026-09-12 11:32:23.304] [16279] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:32:23.304] [16279] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating asphalt_cls/softmax2...
+[2026-09-12 11:32:23.304] [16279] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'asphalt_cls/softmax2': HW >> (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8) >> (PullQEl_hw_read12asphalt_cls/softmax2) >> (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3)) >> (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:33:22.683] [16297] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl12asphalt_cls/softmax2!
+[2026-09-12 11:33:22.683] [16296] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-12 11:33:22.683] [16296] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-12 11:33:22.683] [16296] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read12asphalt_cls/softmax2 was aborted!
+[2026-09-12 11:33:22.683] [16296] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:33:22.683] [16279] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:33:22.683] [16297] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:33:22.683] [16279] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:33:22.684] [16279] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.420091 ms
+[2026-09-12 11:33:22.684] [16279] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.438035 ms
+[2026-09-12 11:40:06.038] [17056] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:40:06.038] [17056] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:40:06.054] [17056] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-12 11:40:06.071] [17056] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.18.39+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.18.39-1+rpt1 (2026-07-29) aarch64
+[2026-09-12 11:40:06.071] [17056] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-12 11:40:06.071] [17056] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-12 11:40:06.155] [17056] [HailoRT] [info] [buffer_requirements.cpp:198] [find_initial_desc_page_size] Using non-default initial_desc_page_size of 64, due to a small transfer size (8)
+[2026-09-12 11:40:06.155] [17056] [HailoRT] [info] [internal_buffer_manager.cpp:75] [print_execution_results] Default Internal buffer planner failed to meet requirements
+[2026-09-12 11:40:06.155] [17056] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 123.225324 milliseconds
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 123.501601 milliseconds
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.23824 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.255258 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608)
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating asphalt_cls/input_layer1...
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'asphalt_cls/input_layer1': (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608) >> HW
+[2026-09-12 11:40:06.195] [17056] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8)
+[2026-09-12 11:40:06.196] [17056] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read12asphalt_cls/softmax2)
+[2026-09-12 11:40:06.196] [17056] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3))
+[2026-09-12 11:40:06.197] [17056] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:40:06.197] [17056] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating asphalt_cls/softmax2...
+[2026-09-12 11:40:06.197] [17056] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'asphalt_cls/softmax2': HW >> (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8) >> (PullQEl_hw_read12asphalt_cls/softmax2) >> (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3)) >> (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:41:37.991] [17074] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl12asphalt_cls/softmax2!
+[2026-09-12 11:41:37.991] [17073] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-12 11:41:37.991] [17073] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-12 11:41:37.991] [17073] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read12asphalt_cls/softmax2 was aborted!
+[2026-09-12 11:41:37.991] [17073] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:41:37.991] [17056] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:41:37.991] [17074] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:41:37.992] [17056] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:41:37.992] [17056] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.406517 ms
+[2026-09-12 11:41:37.992] [17056] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.420313 ms
+[2026-09-12 11:41:57.854] [17408] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:41:57.854] [17408] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: asphalt_cls
+[2026-09-12 11:41:57.875] [17408] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-12 11:41:57.887] [17408] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.18.39+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.18.39-1+rpt1 (2026-07-29) aarch64
+[2026-09-12 11:41:57.887] [17408] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-12 11:41:57.887] [17408] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-12 11:41:57.893] [17408] [HailoRT] [info] [buffer_requirements.cpp:198] [find_initial_desc_page_size] Using non-default initial_desc_page_size of 64, due to a small transfer size (8)
+[2026-09-12 11:41:57.893] [17408] [HailoRT] [info] [internal_buffer_manager.cpp:75] [print_execution_results] Default Internal buffer planner failed to meet requirements
+[2026-09-12 11:41:57.893] [17408] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-12 11:41:57.937] [17408] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 49.142277 milliseconds
+[2026-09-12 11:41:57.937] [17408] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 49.487739 milliseconds
+[2026-09-12 11:41:57.938] [17408] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.812348 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:41:57.938] [17408] [HailoRT] [info] [core_op.cpp:156] [activate] Activating asphalt_cls took 0.856885 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-12 11:41:57.940] [17408] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608)
+[2026-09-12 11:41:57.940] [17408] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating asphalt_cls/input_layer1...
+[2026-09-12 11:41:57.940] [17408] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'asphalt_cls/input_layer1': (HwWriteEl15asphalt_cls/input_layer1 | hw_frame_size: 196608) >> HW
+[2026-09-12 11:41:57.941] [17408] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8)
+[2026-09-12 11:41:57.942] [17408] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read12asphalt_cls/softmax2)
+[2026-09-12 11:41:57.942] [17408] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3))
+[2026-09-12 11:41:57.943] [17408] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:41:57.943] [17408] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating asphalt_cls/softmax2...
+[2026-09-12 11:41:57.943] [17408] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'asphalt_cls/softmax2': HW >> (HwReadEl12asphalt_cls/softmax2 | hw_frame_size: 8) >> (PullQEl_hw_read12asphalt_cls/softmax2) >> (PostInferEl12asphalt_cls/softmax2 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1 | Padding Periph shape - src_shape: (1, 1, 3), dst_shape: (1, 1, 3)) >> (UserBuffQEl12asphalt_cls/softmax2 | timeout: 10s)
+[2026-09-12 11:42:23.329] [17421] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-12 11:42:23.329] [17422] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl12asphalt_cls/softmax2!
+[2026-09-12 11:42:23.329] [17421] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-12 11:42:23.329] [17421] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read12asphalt_cls/softmax2 was aborted!
+[2026-09-12 11:42:23.329] [17421] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:42:23.329] [17408] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:42:23.329] [17422] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl12asphalt_cls/softmax2 is not running anymore, exiting..
+[2026-09-12 11:42:23.329] [17408] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl12asphalt_cls/softmax2 has 0 frames in his Queue on destruction
+[2026-09-12 11:42:23.330] [17408] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.446424 ms
+[2026-09-12 11:42:23.330] [17408] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.466739 ms

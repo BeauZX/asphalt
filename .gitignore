@@ -18,4 +18,5 @@ __pycache__/
 
 # 執行期產物與備份
 roi.json
+hailort.log      # HailoRT 每次執行都會在工作目錄寫這個
 *.bak

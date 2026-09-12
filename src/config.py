@@ -8,6 +8,10 @@ import yaml
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.yaml"
 
+# 類別順序 = 模型輸出的索引順序。.pt 檔自己帶類別名，.hef 沒有，所以要寫在這裡；
+# 兩者順序必須一致（都是訓練時的字母序）
+CLASS_NAMES = ["dry_asphalt_severe", "dry_asphalt_slight", "dry_asphalt_smooth"]
+
 # 0: dry_asphalt_severe  → 紅
 # 1: dry_asphalt_slight  → 黃
 # 2: dry_asphalt_smooth  → 綠
@@ -97,7 +101,7 @@ def load_config(path: Path | str = DEFAULT_CONFIG_PATH,
     w = raw.get("window", {})
 
     cfg = Config(
-        model=_resolve(raw.get("model", "model/asphalt_prep_v2_best.pt")),
+        model=_resolve(raw.get("model", "model/asphalt_cls.hef")),
         video=_resolve(raw.get("video", "")),
         output_dir=_resolve(raw.get("output_dir", "output_videos")),
         segment_seconds=float(raw.get("segment_seconds", 60)),
@@ -130,6 +134,8 @@ def load_config(path: Path | str = DEFAULT_CONFIG_PATH,
         raise ValueError("segment_seconds 必須大於 0")
     if not cfg.model.exists():
         raise FileNotFoundError(f"找不到模型檔: {cfg.model}")
+    if cfg.model.suffix.lower() not in (".hef", ".pt"):
+        raise ValueError(f"model 必須是 .hef（Hailo）或 .pt（CPU）: {cfg.model.name}")
     if not live and not cfg.video.exists():
         raise FileNotFoundError(f"找不到影片檔: {cfg.video}（config.yaml 的 video 設定）")
     return cfg

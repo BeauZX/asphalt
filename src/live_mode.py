@@ -4,9 +4,9 @@ import sys
 import time
 
 import cv2
-from ultralytics import YOLO
 
 from .analyzer import GridAnalyzer
+from .backend import load_classifier
 from .camera import Camera
 from .config import Config, LIVE_WINDOW_TITLE, RunOptions
 from .grid import draw_grid_overlay
@@ -24,10 +24,7 @@ def _draw_status(frame, fps_shown: float, cfg: Config, analyzer: GridAnalyzer) -
 
 
 def run(cfg: Config, opts: RunOptions) -> None:
-    import torch
-    torch.set_num_threads(cfg.camera.torch_threads)  # 留 CPU 給讀取與編碼，避免畫面卡頓
-
-    model = YOLO(str(cfg.model))
+    classifier = load_classifier(cfg)
     cam = Camera(cfg.camera)
     print(f"相機 cam{cfg.camera.id} 已啟動：{cfg.camera.width}×{cfg.camera.height} "
           f"@ {cfg.camera.fps}fps（曝光 {cfg.camera.exposure} / 白平衡 {cfg.camera.awb}）")
@@ -50,7 +47,7 @@ def run(cfg: Config, opts: RunOptions) -> None:
             first_frame, camera_key(cfg.camera.id), opts.ui, cfg.window,
             cfg.camera.width, cfg.camera.height)
 
-        analyzer = GridAnalyzer(model, cfg.grid)
+        analyzer = GridAnalyzer(classifier, cfg.grid)
         analyzer.start()
 
         if opts.save:
@@ -58,7 +55,7 @@ def run(cfg: Config, opts: RunOptions) -> None:
                                 (cfg.camera.width, cfg.camera.height), cfg.segment_seconds)
 
         # 每隔幾幀才餵一幀給分析緒。分析遠慢於相機，餵太密只是白做工被覆寫掉
-        submit_every = max(1, cfg.camera.fps // 4)
+        submit_every = max(1, cfg.camera.fps)
         fps_shown = 0.0
         t_start = last_t = time.perf_counter()
         last_n = 0
@@ -112,6 +109,7 @@ def run(cfg: Config, opts: RunOptions) -> None:
         if seg:
             seg.close()
         cam.close()
+        classifier.close()      # 分析緒 join 完才關，不然它可能還在用 Hailo 裝置
         cv2.destroyAllWindows()
         cv2.waitKey(1)
 

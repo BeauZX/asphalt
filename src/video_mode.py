@@ -1,8 +1,8 @@
 """mode: video — 讀影片檔逐幀分析。"""
 
 import cv2
-from ultralytics import YOLO
 
+from .backend import load_classifier
 from .config import Config, LIVE_WINDOW_TITLE, RunOptions
 from .grid import GridTracker, classify_grid, draw_grid_overlay
 from .recorder import SegmentWriter
@@ -10,10 +10,11 @@ from .roi import resolve_roi, video_key
 
 
 def run(cfg: Config, opts: RunOptions) -> None:
-    model = YOLO(str(cfg.model))
+    classifier = load_classifier(cfg)
 
     cap = cv2.VideoCapture(str(cfg.video))
     if not cap.isOpened():
+        classifier.close()
         raise RuntimeError(f"Cannot open video: {cfg.video}")
 
     fps = cap.get(cv2.CAP_PROP_FPS) or 30
@@ -47,8 +48,8 @@ def run(cfg: Config, opts: RunOptions) -> None:
                 break
 
             roi_crop = frame[ry1:ry2, rx1:rx2]
-            probs, names = classify_grid(model, roi_crop,
-                                         cfg.grid.rows, cfg.grid.cols, cfg.grid.imgsz)
+            probs, names = classify_grid(classifier, roi_crop,
+                                         cfg.grid.rows, cfg.grid.cols)
             grid = tracker.update(probs, names)
 
             roi_annotated = draw_grid_overlay(roi_crop.copy(), grid,
@@ -75,6 +76,7 @@ def run(cfg: Config, opts: RunOptions) -> None:
         cap.release()
         if seg:
             seg.close()
+        classifier.close()
         cv2.destroyAllWindows()
         cv2.waitKey(1)
 

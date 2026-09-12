@@ -6,9 +6,12 @@ import numpy as np
 from .config import COLORS
 
 
-def classify_grid(model, frame: np.ndarray, rows: int, cols: int,
-                  imgsz: int) -> tuple[np.ndarray, dict]:
-    """Split frame into grid and classify each cell. Returns (probs[rows,cols,C], names)."""
+def classify_grid(classifier, frame: np.ndarray, rows: int,
+                  cols: int) -> tuple[np.ndarray, dict]:
+    """
+    把 frame 切成 rows×cols 格，整批丟給分類器。回傳 (probs[rows,cols,C], names)。
+    classifier 是 backend.py 的任一後端，介面見該檔。
+    """
     h, w = frame.shape[:2]
     cell_h = h // rows
     cell_w = w // cols
@@ -20,17 +23,8 @@ def classify_grid(model, frame: np.ndarray, rows: int, cols: int,
             x1, x2 = c * cell_w, (c + 1) * cell_w
             cells.append(frame[y1:y2, x1:x2])
 
-    preds = model(cells, imgsz=imgsz, verbose=False)
-
-    num_classes = len(preds[0].names)
-    probs = np.zeros((rows, cols, num_classes), dtype=np.float32)
-    idx = 0
-    for r in range(rows):
-        for c in range(cols):
-            probs[r, c] = preds[idx].probs.data.cpu().numpy()
-            idx += 1
-
-    return probs, preds[0].names
+    probs = classifier(cells)                       # [rows*cols, C]
+    return probs.reshape(rows, cols, -1), classifier.names
 
 
 def draw_grid_overlay(frame: np.ndarray, grid: list[list[tuple]], rows: int, cols: int,

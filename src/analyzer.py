@@ -14,19 +14,21 @@ class GridAnalyzer(threading.Thread):
     """
     在背景持續分析「最新的一幀」，主緒隨時可以取走最近一次算好的網格結果。
 
-    為什麼需要它：Pi 5 沒有 GPU，分析一次網格要 1~2 秒。如果照影片模式那樣
+    為什麼需要它：CPU 推論時分析一次網格要 1~2 秒。如果照影片模式那樣
     「讀一幀 → 分析 → 顯示」，畫面就會變成每 1~2 秒才動一下，根本沒辦法看。
     拆成背景緒之後，主緒維持相機的原始幀率顯示與錄影，網格顏色則用
     「最近一次算好的結果」填補，等分析緒算完再換上新的。
+    換成 Hailo 之後單次分析只要幾十毫秒，但主緒仍不該同步等：
+    等待時間會直接變成掉幀。
 
-    submit() 只保留最新一幀、舊的直接丟掉：分析速度遠慢於相機，
-    若排隊處理會越積越舊，畫面上標的顏色會離現況越來越遠。
+    submit() 只保留最新一幀、舊的直接丟掉：分析若比相機慢，
+    排隊處理會越積越舊，畫面上標的顏色會離現況越來越遠。
     寧可跳過中間那些幀，也要讓每次分析都是當下的路況。
     """
 
-    def __init__(self, model, grid_cfg: GridConfig):
+    def __init__(self, classifier, grid_cfg: GridConfig):
         super().__init__(daemon=True)
-        self.model = model
+        self.classifier = classifier
         self.cfg = grid_cfg
         self.tracker = GridTracker(grid_cfg.rows, grid_cfg.cols,
                                    grid_cfg.ema_alpha, grid_cfg.switch_margin)
@@ -71,8 +73,8 @@ class GridAnalyzer(threading.Thread):
 
             t0 = time.perf_counter()
             try:
-                probs, names = classify_grid(self.model, frame,
-                                             self.cfg.rows, self.cfg.cols, self.cfg.imgsz)
+                probs, names = classify_grid(self.classifier, frame,
+                                             self.cfg.rows, self.cfg.cols)
             except Exception as e:
                 # 單次推論失敗不該讓整個錄影中斷，記錄後繼續等下一幀
                 print(f"[分析] 推論失敗: {e}", file=sys.stderr)
