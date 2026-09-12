@@ -54,8 +54,6 @@ def run(cfg: Config, opts: RunOptions) -> None:
             seg = SegmentWriter(cfg.output_dir, cfg.camera.fps,
                                 (cfg.camera.width, cfg.camera.height), cfg.segment_seconds)
 
-        # 每隔幾幀才餵一幀給分析緒。分析遠慢於相機，餵太密只是白做工被覆寫掉
-        submit_every = max(1, cfg.camera.fps)
         fps_shown = 0.0
         t_start = last_t = time.perf_counter()
         last_n = 0
@@ -68,9 +66,10 @@ def run(cfg: Config, opts: RunOptions) -> None:
                 break
 
             roi_crop = frame[ry1:ry2, rx1:rx2]
-            if frame_idx % submit_every == 0:
-                # copy() 是必要的：frame 下一輪會被覆寫，而分析緒可能還在用這塊記憶體
-                analyzer.submit(roi_crop.copy())
+            # 每幀都餵給分析緒。Hailo 一次分析約 34 ms，比相機的 40 ms 一幀快，跟得上；
+            # 若換回 CPU（1.4 s），submit() 會自動丟掉沒來得及處理的幀，不會積壓。
+            # copy() 是必要的：frame 下一輪會被覆寫，而分析緒可能還在用這塊記憶體
+            analyzer.submit(roi_crop.copy())
 
             grid = analyzer.latest()
             if grid is not None:

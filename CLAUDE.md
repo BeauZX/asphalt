@@ -88,8 +88,9 @@ drop frames. `GridAnalyzer` runs inference on a background thread while the main
 loop displays and records at full camera rate, filling in with the most recent
 grid result. `submit()` deliberately keeps only the newest frame and drops the
 rest — queuing would make the displayed colours drift further and further behind
-reality. With the Hailo the grid refresh (~4/s) is now bounded by `submit_every`
-in `live_mode.py`, not by inference.
+reality. Live mode submits every frame: on the Hailo the analysis (~34 ms)
+finishes within one camera frame (40 ms), so the grid refreshes at camera rate;
+on CPU the drop-oldest rule in `submit()` keeps it from piling up.
 
 **CSI cameras cannot be read with `cv2.VideoCapture`.** IMX219 emits raw Bayer
 (SBGGR10); the ISP pipeline that turns it into a usable image lives in libcamera.
@@ -172,7 +173,7 @@ encoding keep their share; raising it makes the preview stutter.
 ## Measured performance
 
 Hailo (`.hef`): live mode 25 fps display/record, ~34 ms per 3×5 analysis, grid
-refresh ~0.25 s (bounded by `submit_every`). Video mode on the sample footage
+refresh every frame (601 analyses in 601 frames). Video mode on the sample footage
 (`asphalt.MP4`, 2704×1520 @ 239.76 fps, 3635 frames) runs ~11 fps with recording,
 ~21 fps without — the `mp4v` encode is now the cost, so the full file takes ~5–6 min.
 
